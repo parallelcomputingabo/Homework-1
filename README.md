@@ -100,7 +100,8 @@ to `result.raw` within the same subfolder. This setup allows automated testing a
    git add .
    git commit -m "student-name: Implemented naive matrix multiplication"
    ```
-   git push origin my-solution
+   ```
+   git push origin student-name
    ```
 
 6. **Submit a Pull Request (PR)**

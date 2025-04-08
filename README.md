@@ -84,7 +84,7 @@ to `result.raw` within the same subfolder. This setup allows automated testing a
 
 2. **Clone the Fork**
    ```bash
-   git clone https://github.com/parellelcomputingabo/Homework-1.git
+   git clone https://github.com/parallelcomputingabo/Homework-1.git
    cd Homework-1
    ```
 

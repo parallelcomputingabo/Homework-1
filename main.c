@@ -68,9 +68,9 @@ int compare_results(char *path_a, char *path_b)
 /**
  * Formats a floating point number into `buf` to two-decimal precision and no trailing zeroes.
  */
-void format_properly(float f, char *buf)
+void format_properly(float f, char *buf, size_t buf_size)
 {
-    int len = snprintf(buf, 16, "%.2f", f);
+    int len = snprintf(buf, buf_size, "%.2f", f);
     char *ptr = buf + len - 1;
     while (*ptr == '0' && ptr >= buf)
     {
@@ -162,7 +162,7 @@ int main(int argc, char **argv)
             // could do this by just seeking at the end if trailing newline was allowed
             if (j > 0)
                 fputc(' ', result);
-            format_properly(C[i * p + j], buf);
+            format_properly(C[i * p + j], buf, sizeof(buf));
             fprintf(result, "%s", buf);
         }
         // for whatever reason the output.raw file does not have a newline at end of file

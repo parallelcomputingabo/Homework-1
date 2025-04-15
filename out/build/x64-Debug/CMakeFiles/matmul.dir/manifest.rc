@@ -1,0 +1,2 @@
+#pragma code_page(65001)
+1 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */ 24 /* RT_MANIFEST */ "C:/Users/masac/OneDrive/Desktop/Masa/College/Parallel Programming/Parallel-Programming-Homework-1/out/build/x64-Debug/CMakeFiles/matmul.dir/embed.manifest"

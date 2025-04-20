@@ -1,0 +1,3 @@
+/run/media/priyo/priyo/Homework-1/build/CMakeFiles/matmul.dir
+/run/media/priyo/priyo/Homework-1/build/CMakeFiles/edit_cache.dir
+/run/media/priyo/priyo/Homework-1/build/CMakeFiles/rebuild_cache.dir

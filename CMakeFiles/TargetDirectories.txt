@@ -1,0 +1,3 @@
+/home/rm_rf_master/Documents/EDISS/Homework-1/CMakeFiles/matmul.dir
+/home/rm_rf_master/Documents/EDISS/Homework-1/CMakeFiles/edit_cache.dir
+/home/rm_rf_master/Documents/EDISS/Homework-1/CMakeFiles/rebuild_cache.dir

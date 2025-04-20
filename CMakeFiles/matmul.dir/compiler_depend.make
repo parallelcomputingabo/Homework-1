@@ -183,8 +183,6 @@ CMakeFiles/matmul.dir/main.cpp.o: main.cpp \
   /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
   /usr/include/c++/11/bits/fstream.tcc \
-  /usr/include/c++/11/sstream \
-  /usr/include/c++/11/bits/sstream.tcc \
   /usr/include/c++/11/cassert \
   /usr/include/assert.h \
   /usr/include/c++/11/cstring \
@@ -222,8 +220,6 @@ CMakeFiles/matmul.dir/main.cpp.o: main.cpp \
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
 /usr/include/c++/11/cassert:
-
-/usr/include/c++/11/sstream:
 
 /usr/include/c++/11/bits/fstream.tcc:
 
@@ -562,8 +558,6 @@ CMakeFiles/matmul.dir/main.cpp.o: main.cpp \
 /usr/include/c++/11/cstdlib:
 
 /usr/include/strings.h:
-
-/usr/include/c++/11/bits/sstream.tcc:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h:
 

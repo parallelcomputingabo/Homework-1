@@ -19,13 +19,13 @@ void naive_matmul(float* C, float* A, float* B, uint32_t m, uint32_t n, uint32_t
 int main() {
     // Step 1: Open and read input files
     // TODO: Read dimensions from input0.raw and input1.raw available in the data directory
-    std::ifstream input0("data/9/input0.raw");
+    std::ifstream input0("data/8/input0.raw");
     if (!input0.is_open()) {
         std::cerr << "Error: Could not open input0.raw" << std::endl;
         return 1;
     }
 
-    std::ifstream input1("data/9/input1.raw");
+    std::ifstream input1("data/8/input1.raw");
     if (!input0.is_open()) {
         std::cerr << "Error: Could not open input0.raw" << std::endl;
         return 1;
@@ -79,7 +79,7 @@ int main() {
     
 
     // Step 3: Write result to result.raw in the same directory as input files
-    std::ofstream result("result.raw");
+    std::ofstream result("data/8/result.raw");
     if (!result.is_open()) {
         std::cerr << "Error: Could not open result.raw" << std::endl;
         return 1;
@@ -98,7 +98,7 @@ int main() {
     // Step 4: validate the result
     // TODO: Implement validation function to check if the result is correct by comparing results.raw and output.raw
     // I kept forgetting to change the path to this output file for verification, pretty dumb but took a while to figure out
-    std::ifstream output("data/9/output.raw");
+    std::ifstream output("data/8/output.raw");
     if (!output.is_open()) {
         std::cerr << "Error: Could not open output.raw" << std::endl;
         return 1;
@@ -121,8 +121,8 @@ int main() {
 
     // Step 5: Clean up memory
     // TODO: Deallocate A, B, and C
-    free(A);
-    free(B);
-    free(C);
+    delete[] A;
+    delete[] B;
+    delete[] C;
     return 0;
 }

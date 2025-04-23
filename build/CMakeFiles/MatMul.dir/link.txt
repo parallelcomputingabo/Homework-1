@@ -1,0 +1,3 @@
+"C:\Program Files (x86)\mingw64\bin\cmake.exe" -E rm -f CMakeFiles\MatMul.dir/objects.a
+C:\PROGRA~2\mingw64\bin\ar.exe qc CMakeFiles\MatMul.dir/objects.a @CMakeFiles\MatMul.dir\objects1.rsp
+C:\PROGRA~2\mingw64\bin\G__~1.EXE -g -Wl,--whole-archive CMakeFiles\MatMul.dir/objects.a -Wl,--no-whole-archive -o MatMul.exe -Wl,--out-implib,libMatMul.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\MatMul.dir\linkLibs.rsp

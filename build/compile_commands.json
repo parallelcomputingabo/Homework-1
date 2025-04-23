@@ -1,0 +1,8 @@
+[
+{
+  "directory": "D:/Abo/Parallel_Programming/Homework-1/build",
+  "command": "C:\\PROGRA~2\\mingw64\\bin\\G__~1.EXE   -g -std=gnu++11 -o CMakeFiles\\MatMul.dir\\main.cpp.obj -c D:\\Abo\\Parallel_Programming\\Homework-1\\main.cpp",
+  "file": "D:/Abo/Parallel_Programming/Homework-1/main.cpp",
+  "output": "CMakeFiles/MatMul.dir/main.cpp.obj"
+}
+]

@@ -41,7 +41,10 @@ bool write_matrix(const std::string& path, float* data, uint32_t rows, uint32_t 
         return false;
     }
     file << rows << " " << cols << "\n";
-    file << std::fixed << std::setprecision(2); // <- Ensures consistent float format like 996.00
+    // failing test 6 and 9
+    //file << std::fixed << std::setprecision(1); //
+    //now failing 9, need more decimal point
+    file << std::fixed << std::setprecision(2); //
 
     for (uint32_t i = 0; i < rows; ++i) {
         for (uint32_t j = 0; j < cols; ++j) {

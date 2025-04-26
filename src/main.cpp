@@ -1,3 +1,14 @@
+/*
+ * Matrix Multiplication Implementation
+ * Performs C = A × B using naive triple-loop algorithm
+ * Features:
+ * - Manual memory management with new/delete
+ * - Exact output formatting to match reference
+ * - Built-in validation against reference output
+ * - Row-major ordering
+ * - Floating-point tolerant comparison
+ */
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -6,12 +17,18 @@
 #include <iomanip>
 #include <cmath>
 
-void matrix_multiply(const float* left_matrix, const float* right_matrix, float* result_matrix, 
-                    int left_rows, int left_cols, int right_cols) {
+const float FLOAT_TOLERANCE = 0.001f; // Tolerance for floating-point comparisons
+
+// Performs matrix multiplication C = A × B
+// Uses row-major ordering and manual memory management
+void matrix_multiply(const float* left_matrix, const float* right_matrix, 
+                    float* result_matrix, int left_rows, int left_cols, 
+                    int right_cols) {
     for (int row = 0; row < left_rows; ++row) {
         for (int col = 0; col < right_cols; ++col) {
             float sum = 0.0f;
             for (int k = 0; k < left_cols; ++k) {
+                // Using fused multiply-add for better numerical precision
                 sum = std::fma(left_matrix[row * left_cols + k], 
                              right_matrix[k * right_cols + col], 
                              sum);
@@ -21,6 +38,9 @@ void matrix_multiply(const float* left_matrix, const float* right_matrix, float*
     }
 }
 
+// Reads matrix from file with format:
+// <rows> <cols>
+// <data...>
 float* read_matrix_from_file(const std::string& filename, int& rows, int& cols) {
     std::ifstream input_file(filename);
     if (!input_file.is_open()) {
@@ -28,11 +48,13 @@ float* read_matrix_from_file(const std::string& filename, int& rows, int& cols) 
         return nullptr;
     }
 
+    // Read dimensions
     std::string dimension_line;
     std::getline(input_file, dimension_line);
     std::stringstream dimension_stream(dimension_line);
     dimension_stream >> rows >> cols;
 
+    // Allocate and read data
     float* matrix_data = new float[rows * cols];
     for (int i = 0; i < rows * cols; ++i) {
         input_file >> matrix_data[i];
@@ -42,6 +64,7 @@ float* read_matrix_from_file(const std::string& filename, int& rows, int& cols) 
     return matrix_data;
 }
 
+// Writes matrix to file with exact formatting to match reference
 void write_matrix_to_file(const std::string& filename, const float* matrix_data, 
                          int rows, int cols) {
     std::ofstream output_file(filename);
@@ -50,28 +73,28 @@ void write_matrix_to_file(const std::string& filename, const float* matrix_data,
         return;
     }
 
+    // Write dimensions
     output_file << rows << " " << cols << "\n";
     
+    // Write data with precise formatting
     for (int row = 0; row < rows; ++row) {
         for (int col = 0; col < cols; ++col) {
             float val = matrix_data[row * cols + col];
             
-            // Check if value is a whole number
+            // Format whole numbers as "XXX."
             if (val == std::floor(val)) {
-                output_file << static_cast<int>(val) << "."; // Format as "XXX."
+                output_file << static_cast<int>(val) << ".";
             } else {
-                // For decimal numbers, use precision 2 but remove trailing zero
+                // Format decimals with trailing zeros removed
                 std::stringstream ss;
                 ss << std::fixed << std::setprecision(2) << val;
                 std::string s = ss.str();
                 s.erase(s.find_last_not_of('0') + 1, std::string::npos);
-                if (s.back() == '.') s += "0"; // Ensure trailing .0
+                if (s.back() == '.') s += "0";
                 output_file << s;
             }
 
-            if (col < cols - 1) {
-                output_file << " ";
-            }
+            if (col < cols - 1) output_file << " ";
         }
         output_file << "\n";
     }
@@ -79,12 +102,18 @@ void write_matrix_to_file(const std::string& filename, const float* matrix_data,
     output_file.close();
 }
 
+// Compares two float values with tolerance
+bool compare_floats(float a, float b) {
+    return std::abs(a - b) <= FLOAT_TOLERANCE;
+}
+
+// Compares two lines containing space-separated floats
 bool compare_float_lines(const std::string& line1, const std::string& line2) {
     std::istringstream iss1(line1), iss2(line2);
     float val1, val2;
     
     while (iss1 >> val1 && iss2 >> val2) {
-        if (std::abs(val1 - val2) > 0.001f) {
+        if (!compare_floats(val1, val2)) {
             return false;
         }
     }
@@ -93,13 +122,15 @@ bool compare_float_lines(const std::string& line1, const std::string& line2) {
     return iss1.eof() && iss2.eof();
 }
 
-bool compare_files(const std::string& file1, const std::string& file2) {
+// Compares two matrix files with tolerance for floating-point differences
+bool compare_matrix_files(const std::string& file1, const std::string& file2) {
     std::ifstream f1(file1), f2(file2);
     if (!f1 || !f2) {
         std::cerr << "Error opening files for comparison" << std::endl;
         return false;
     }
 
+    // Compare line by line
     std::string line1, line2;
     while (std::getline(f1, line1) && std::getline(f2, line2)) {
         if (line1 != line2 && !compare_float_lines(line1, line2)) {
@@ -119,44 +150,52 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    // Set up file paths
     std::filesystem::path executable_path = std::filesystem::absolute(argv[0]);
     std::string data_directory = executable_path.parent_path().string() + 
                                "/data/" + 
                                std::to_string(std::stoi(argv[1])) + "/";
 
-    int left_matrix_rows, left_matrix_cols;
-    int right_matrix_rows, right_matrix_cols;
+    // Read input matrices
+    int left_rows, left_cols;
+    int right_rows, right_cols;
     
     float* left_matrix = read_matrix_from_file(data_directory + "input0.raw", 
-                                             left_matrix_rows, left_matrix_cols);
+                                             left_rows, left_cols);
     float* right_matrix = read_matrix_from_file(data_directory + "input1.raw", 
-                                              right_matrix_rows, right_matrix_cols);
+                                              right_rows, right_cols);
 
-    if (left_matrix_cols != right_matrix_rows) {
+    if (!left_matrix || !right_matrix) {
+        std::cerr << "Error reading input matrices" << std::endl;
+        return 1;
+    }
+
+    // Validate dimensions
+    if (left_cols != right_rows) {
         std::cerr << "Error: Matrix dimensions incompatible for multiplication" << std::endl;
         delete[] left_matrix;
         delete[] right_matrix;
         return 1;
     }
 
-    float* product_matrix = new float[left_matrix_rows * right_matrix_cols];
+    // Perform multiplication
+    float* product_matrix = new float[left_rows * right_cols];
     matrix_multiply(left_matrix, right_matrix, product_matrix, 
-                   left_matrix_rows, left_matrix_cols, right_matrix_cols);
+                   left_rows, left_cols, right_cols);
     
+    // Write result
     std::string result_path = data_directory + "result.raw";
-    write_matrix_to_file(result_path, 
-                        product_matrix, 
-                        left_matrix_rows, 
-                        right_matrix_cols);
+    write_matrix_to_file(result_path, product_matrix, left_rows, right_cols);
 
-    // Validation step
+    // Validate against reference
     std::string reference_path = data_directory + "output.raw";
-    if (compare_files(result_path, reference_path)) {
+    if (compare_matrix_files(result_path, reference_path)) {
         std::cout << "Validation SUCCESS: result.raw matches output.raw" << std::endl;
     } else {
         std::cout << "Validation FAILED: result.raw differs from output.raw" << std::endl;
     }
 
+    // Clean up
     delete[] left_matrix;
     delete[] right_matrix;
     delete[] product_matrix;

@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/kaveesha/Desktop/Uthpala_Abo/Parallel Programming/HomeWork1/Homework-1/build",
+  "command": "/usr/bin/g++    -g   -std=gnu++11 -o CMakeFiles/matmul.dir/main.cpp.o -c \"/home/kaveesha/Desktop/Uthpala_Abo/Parallel Programming/HomeWork1/Homework-1/main.cpp\"",
+  "file": "/home/kaveesha/Desktop/Uthpala_Abo/Parallel Programming/HomeWork1/Homework-1/main.cpp"
+}
+]

@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/kaveesha/Desktop/Uthpala_Abo/Parallel Programming/HomeWork1/Homework-1/main.cpp
+iostream
+-
+fstream
+-
+string
+-
+cstdlib
+-
+

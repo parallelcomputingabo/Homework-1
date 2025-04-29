@@ -246,4 +246,4 @@ int main(int argc, char* argv[]) {
     delete BMatrix;
 
     return 0;
-}
+} 

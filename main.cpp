@@ -20,6 +20,41 @@ void naive_matmul(double* C, double* A, double* B, uint32_t m, uint32_t n, uint3
     }
 }
 
+// Read a matrix from text file (row-major)
+double* read_matrix(const std::string& path, uint32_t& rows, uint32_t& cols) {
+    std::ifstream in(path);
+    if (!in) {
+        std::cerr << "Error: cannot open file " << path << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
+    in >> rows >> cols;
+    double* mat = new double[static_cast<size_t>(rows) * cols];
+    for (uint32_t i = 0; i < rows * cols; ++i) {
+        in >> mat[i];
+    }
+    in.close();
+    return mat;
+}
+
+// Write a matrix to text file (row-major)
+void write_matrix(const std::string& path, const double* mat,
+                  uint32_t rows, uint32_t cols) {
+    std::ofstream out(path);
+    if (!out) {
+        std::cerr << "Error: cannot write to file " << path << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
+    out << rows << " " << cols << '\n';
+    for (uint32_t i = 0; i < rows; ++i) {
+        for (uint32_t j = 0; j < cols; ++j) {
+            out << mat[i * cols + j];
+            if (j + 1 < cols) out << ' ';
+        }
+        out << '\n';
+    }
+    out.close();
+}
+
 int main() {
     // Step 1: Open and read input files
     // TODO: Read dimensions from input0.raw and input1.raw available in the data directory

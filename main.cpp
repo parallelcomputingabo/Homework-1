@@ -68,31 +68,62 @@ bool compare_matrices(const double* C, const double* D, int size, double epsilon
     return true;
 }
 
-int main() {
+int main(int argc, char* argv[]) {
     // Step 1: Open and read input files
     // TODO: Read dimensions from input0.raw and input1.raw available in the data directory
+    if (argc != 2) {
+        std::cerr << "Usage: " << argv[0] << " <folder_path>" << std::endl;
+        return EXIT_FAILURE;
+    }
 
+    std::string base = argv[1];
+    std::string pathA = base + "input0.raw";
+    std::string pathB = base + "input1.raw";
+    std::string pathC = base + "result.raw";
+    std::string pathD = base + "output.raw";
 
-    // TODO: Read dimensions from input0.raw and input1.raw
-    int m, n, p;  // A is m x n, B is n x p, C is m x p
+    // Read dimensions and matrices from input0.raw and input1.raw
+    uint32_t m, n_A, n_B, n, p;  // A is m x n, B is n x p, C is m x p
+    std::cout << "Reading matrix A from: " << pathA << std::endl;
+    double* A = read_matrix(pathA, m, n_A);
+    std::cout << "Reading matrix B from: " << pathB << std::endl;
+    double* B = read_matrix(pathB, n_B, p);
+    std::cout << "Reading matrix D from: " << pathB << std::endl;
+    double* D = read_matrix(pathD, n_B, p);
+    std::cout << "Result matrix C will be written to: " << pathC << std::endl;
 
-    // TODO: Allocate memory for matrices A, B, and C using new or malloc
+    if (n_A != n_B) {
+        std::cerr << "Error: inner dimensions must match (" << n_A << " vs " << n_B << ")" << std::endl;
+        return EXIT_FAILURE;
+    }
 
-    // TODO: Read matrix elements into A and B (row-major order)
+    n = n_A; // or n_B, they are the same
 
-    // Step 2: Perform matrix multiplication
-    // TODO: Call naive_matmul
+    // Allocate memory for matrix C 
+    double* C = new double[m * p];
 
-    // Step 3: Write result to result.raw in the same directory as input files
+    // Perform matrix multiplication
+    std::cout << "Performing matrix multiplication..." << std::endl;
+    naive_matmul(C, A, B, m, n, p);
 
-    // TODO: Write dimensions and elements to result.raw
+    // Write result to result.raw in the same directory as input files
+    std::cout << "Writing result matrix C to: " << pathC << std::endl;
+    write_matrix(pathC, C, m, p);
 
-    // Step 4: validate the result
-    // TODO: Implement validation function to check if the result is correct by comparing results.raw and output.raw
+    // Validate the result
+    std::cout << "Validating result..." << std::endl;
+    bool isValid = compare_matrices(C, D, m * p);
+    if (isValid) {
+        std::cout << "\n✓ Validation successful! Result matches expected output." << std::endl;
+    } else {
+        std::cout << "\n✗ Validation failed! Result does not match expected output." << std::endl;
+    }
 
+    // Clean up memory
+    delete[] A;
+    delete[] B;
+    delete[] C;
+    delete[] D;
 
-    // Step 5: Clean up memory
-    // TODO: Deallocate A, B, and C
-
-    return 0;
+    return EXIT_SUCCESS;
 }

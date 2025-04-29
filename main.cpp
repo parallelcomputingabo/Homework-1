@@ -72,11 +72,12 @@ int main(int argc, char* argv[]) {
     // Step 1: Open and read input files
     // TODO: Read dimensions from input0.raw and input1.raw available in the data directory
     if (argc != 2) {
-        std::cerr << "Usage: " << argv[0] << " <folder_path>" << std::endl;
+        std::cerr << "Usage: " << argv[0] << " <case number>" << std::endl;
         return EXIT_FAILURE;
     }
 
-    std::string base = argv[1];
+    int case_num = std::atoi(argv[1]);
+    std::string base = "data/" + std::to_string(case_num) + "/";
     std::string pathA = base + "input0.raw";
     std::string pathB = base + "input1.raw";
     std::string pathC = base + "result.raw";

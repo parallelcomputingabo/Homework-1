@@ -55,6 +55,19 @@ void write_matrix(const std::string& path, const double* mat,
     out.close();
 }
 
+// Compare two matrices and return true if they match within epsilon
+bool compare_matrices(const double* C, const double* D, int size, double epsilon = 1e-9) {
+    for (int i = 0; i < size; i++) {
+        if (std::abs(C[i] - D[i]) > epsilon) {
+            std::cout << "Mismatch at index " << i << ": " 
+                      << "Result = " << C[i] << ", Expected = " << D[i] 
+                      << ", Diff = " << std::abs(C[i] - D[i]) << std::endl;
+            return false;
+        }
+    }
+    return true;
+}
+
 int main() {
     // Step 1: Open and read input files
     // TODO: Read dimensions from input0.raw and input1.raw available in the data directory

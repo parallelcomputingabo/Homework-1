@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cstdint>
 
 void naive_matmul(float* C, float* A, float* B, uint32_t m, uint32_t n, uint32_t p) {
     // TODO: Implement naive matrix multiplication C = A x B

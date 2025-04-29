@@ -77,20 +77,20 @@ int main(int argc, char* argv[]) {
     }
 
     int case_num = std::atoi(argv[1]);
-    std::string base = "data/" + std::to_string(case_num) + "/";
+    std::string base = "../data/" + std::to_string(case_num) + "/";
     std::string pathA = base + "input0.raw";
     std::string pathB = base + "input1.raw";
     std::string pathC = base + "result.raw";
     std::string pathD = base + "output.raw";
 
     // Read dimensions and matrices from input0.raw and input1.raw
-    uint32_t m, n_A, n_B, n, p;  // A is m x n, B is n x p, C is m x p
+    uint32_t m, n_A, n_B, n, p, m_D, p_D;  // A is m x n, B is n x p, C is m x p
     std::cout << "Reading matrix A from: " << pathA << std::endl;
     double* A = read_matrix(pathA, m, n_A);
     std::cout << "Reading matrix B from: " << pathB << std::endl;
     double* B = read_matrix(pathB, n_B, p);
-    std::cout << "Reading matrix D from: " << pathB << std::endl;
-    double* D = read_matrix(pathD, n_B, p);
+    std::cout << "Reading matrix D from: " << pathD << std::endl;
+    double* D = read_matrix(pathD, m_D, p_D);
     std::cout << "Result matrix C will be written to: " << pathC << std::endl;
 
     if (n_A != n_B) {

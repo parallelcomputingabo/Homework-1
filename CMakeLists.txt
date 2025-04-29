@@ -1,4 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(MatMul CXX)
 set(CMAKE_CXX_STANDARD 11)
+set(FOLDER_NUM "0")
+add_definitions(-DFOLDER_NUM="${FOLDER_NUM}")
 add_executable(matmul main.cpp)

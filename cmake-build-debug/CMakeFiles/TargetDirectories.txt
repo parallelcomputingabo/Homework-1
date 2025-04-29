@@ -1,3 +1,0 @@
-C:/Users/nikla/Desktop/Parallel programming/Homework-1/cmake-build-debug/CMakeFiles/matmul.dir
-C:/Users/nikla/Desktop/Parallel programming/Homework-1/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/nikla/Desktop/Parallel programming/Homework-1/cmake-build-debug/CMakeFiles/rebuild_cache.dir

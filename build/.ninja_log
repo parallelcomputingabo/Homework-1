@@ -1,3 +1,5 @@
 # ninja log v6
-11	2047	7682320889684554	CMakeFiles/matmul.dir/main.cpp.obj	31eefefaf0c99fa7
-2050	2927	7682320910062953	matmul.exe	eb9b872b57a28fb
+13	2023	7682329403612701	CMakeFiles/matmul.dir/main.cpp.obj	31eefefaf0c99fa7
+2024	2676	7682329423622637	matmul.exe	eb9b872b57a28fb
+24	2072	7682334595941816	CMakeFiles/matmul.dir/main.cpp.obj	31eefefaf0c99fa7
+2074	2485	7682334616437532	matmul.exe	eb9b872b57a28fb

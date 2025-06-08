@@ -2,6 +2,8 @@
 #include <fstream>
 #include <iomanip>
 #include <string>
+#include <cstdint> //Am I running some weird version of C or is Clion doing something here?
+#include <cmath> // It might just be a windows vs linux thing...
 
 void naive_matmul(float* C, float* A, float* B, uint32_t m, uint32_t n, uint32_t p)
 {
